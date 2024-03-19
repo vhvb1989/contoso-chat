@@ -7,3 +7,5 @@ param location = readEnvironmentVariable('AZURE_LOCATION', 'location')
 param principalId = readEnvironmentVariable('AZURE_PRINCIPAL_ID', 'principal_id')
 
 param searchLocation = readEnvironmentVariable('SEARCH_LOCATION', 'eastus')
+
+param runningOnGh = readEnvironmentVariable('GITHUB_ACTIONS', '')
