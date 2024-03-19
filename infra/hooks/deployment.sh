@@ -16,6 +16,9 @@ deploymentName="contoso-chat-$RANDOM"
 
 az extension add -n ml -y
 
+#get registry first repository name as variable
+acrRepository=$(az acr repository list --name $AZURE_CONTAINER_REGISTRY_NAME --output tsv --query "[0]")
+
 # Execute the command and parse versions directly, storing the highest version number
 max_version=0
 for version in $(az ml environment list --name $acrRepository --resource-group $AZURE_RESOURCE_GROUP --workspace-name $AZURE_MLPROJECT_NAME | jq -r '.[].version'); do
@@ -39,8 +42,6 @@ az ml environment create --file deployment/docker/environment.yml --resource-gro
 echo "Waiting for environment to be created..."
 sleep 600
 
-#get registry first repository name as variable
-acrRepository=$(az acr repository list --name $AZURE_CONTAINER_REGISTRY_NAME --output tsv --query "[0]")
 # get repository name
 # get envirnment image name from acr
 image_tag=$(az acr repository show-tags --name $AZURE_CONTAINER_REGISTRY_NAME --repository $acrRepository --query "[0]" -o tsv)
