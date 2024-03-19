@@ -6,6 +6,14 @@ metadata:
 workflows:
   up:
     - azd: provision
+pipeline:
+  variables:
+    - AZURE_CONTAINER_REGISTRY_NAME
+    - AZURE_RESOURCE_GROUP
+    - AZURE_MLPROJECT_NAME
+    - AZURE_SEARCH_NAME
+    - AZURE_OPENAI_NAME
+    - AZURE_COSMOS_NAME
 hooks:
   postprovision:
     shell: sh
